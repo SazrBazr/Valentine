@@ -133,7 +133,6 @@ function checkButtonStates() {
 
 // Function to handle the checkout process
 function checkout() {
-    emailjs.init("torhjkGsU4X3vG3Bn");
     if (cart.length === 0) {
         alert("Your cart is empty! Please add items to your cart.");
         return;
