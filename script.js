@@ -4,6 +4,10 @@ let balance = 300; // Initial gift card balance
 
 let selectedItem = {};
 
+// Initialize EmailJS
+emailjs.init("torhjkGsU4X3vG3Bn"); // Replace with your actual user ID from EmailJS
+
+
 function showPopup(name, price, description) {
     selectedItem = { name, price };
     document.getElementById("popupTitle").textContent = name;
@@ -132,28 +136,29 @@ function checkout() {
         return;
     }
 
-    cart.forEach(item => {
-        fetch("https://script.google.com/macros/s/AKfycbyFGNCdG7RfLFxaFNymZmny8xt1dqKzUHmrzmkZ6CmHFdWt0pBGnp7pu3YCTrzfRHvnZw/exec", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                item: item.name,
-                price: item.price,
-                quantity: item.quantity
-            })
-        })
-        .then(response => response.json())
-        .then(data => console.log("Success:", data))
-        .catch(error => console.error("Error:", error));
-    });
-
     const orderDetails = cart.map(item => `${item.name} - $${item.price} x ${item.quantity}`).join('\n');
-    alert(`Order placed successfully! You ordered:\n\n${orderDetails}\n\nTe amo! 💖`);
+    const totalAmount = cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
-    // Clear cart after purchase
-    cart = [];
-    balance = 300; // Reset balance
-    updateCartView();
-    updateBalanceDisplay();
-    checkButtonStates();
+    // Send email with the order details
+    const emailData = {
+        to_email: 'sarizriek@gmail.com', // Replace with your email
+        subject: 'New Valentine\'s Gift Shop Order',
+        message: `Order placed successfully! Here are the details:\n\n${orderDetails}\n\nTotal: $${totalAmount}\n\nTe amo! 💖`
+    };
+
+    emailjs.send("service_3koffek", "template_r2s4dcf", emailData)
+        .then(function(response) {
+            console.log("Email sent successfully", response);
+            alert(`Order placed successfully! You ordered:\n\n${orderDetails}\n\nTe amo! 💖`);
+            
+            // Clear cart after purchase
+            cart = [];
+            balance = 300; // Reset balance
+            updateCartView();
+            updateBalanceDisplay();
+            checkButtonStates();
+        }, function(error) {
+            console.error("Error sending email", error);
+            alert("There was an error processing your order. Please try again.");
+        });
 }
