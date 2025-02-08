@@ -133,7 +133,7 @@ function checkout() {
     }
 
     cart.forEach(item => {
-        fetch("YOUR_GOOGLE_APPS_SCRIPT_WEBHOOK_URL", {
+        fetch("https://script.google.com/macros/s/AKfycbyFGNCdG7RfLFxaFNymZmny8xt1dqKzUHmrzmkZ6CmHFdWt0pBGnp7pu3YCTrzfRHvnZw/exec", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
