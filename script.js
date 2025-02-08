@@ -4,12 +4,6 @@ let balance = 300; // Initial gift card balance
 
 let selectedItem = {};
 
-(function() {
-    emailjs.init("torhjkGsU4X3vG3Bn");
-})();
-
-
-
 function showPopup(name, price, description) {
     selectedItem = { name, price };
     document.getElementById("popupTitle").textContent = name;
@@ -140,25 +134,5 @@ function checkout() {
 
     const orderDetails = cart.map(item => `${item.name} - $${item.price} x ${item.quantity}`).join('\n');
     const totalAmount = cart.reduce((total, item) => total + item.price * item.quantity, 0);
-
-    // Send email with the order details
-    const emailData = {
-        message: `Order placed successfully! Here are the details:\n\n${orderDetails}\n\nTotal: $${totalAmount}\n\nTe amo! 💖`
-    };
-
-    emailjs.send("service_3koffek", "template_25h2jdk", emailData)
-        .then(function(response) {
-            console.log("Email sent successfully", response);
-            alert(`Order placed successfully! You ordered:\n\n${orderDetails}\n\nTe amo! 💖`);
-            
-            // Clear cart after purchase
-            cart = [];
-            balance = 300; // Reset balance
-            updateCartView();
-            updateBalanceDisplay();
-            checkButtonStates();
-        }, function(error) {
-            console.error("Error sending email", error);
-            alert("There was an error processing your order. Please try again.");
-        });
+    alert(`Order placed successfully! You ordered:\n\n${orderDetails}\n\nTe amo! 💖`);
 }
