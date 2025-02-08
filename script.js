@@ -4,8 +4,10 @@ let balance = 300; // Initial gift card balance
 
 let selectedItem = {};
 
-// Initialize EmailJS
-emailjs.init("torhjkGsU4X3vG3Bn"); // Replace with your actual user ID from EmailJS
+(function() {
+    emailjs.init("torhjkGsU4X3vG3Bn");
+})();
+
 
 
 function showPopup(name, price, description) {
@@ -131,6 +133,7 @@ function checkButtonStates() {
 
 // Function to handle the checkout process
 function checkout() {
+    emailjs.init("torhjkGsU4X3vG3Bn");
     if (cart.length === 0) {
         alert("Your cart is empty! Please add items to your cart.");
         return;
@@ -141,12 +144,10 @@ function checkout() {
 
     // Send email with the order details
     const emailData = {
-        to_email: 'sarizriek@gmail.com', // Replace with your email
-        subject: 'New Valentine\'s Gift Shop Order',
         message: `Order placed successfully! Here are the details:\n\n${orderDetails}\n\nTotal: $${totalAmount}\n\nTe amo! 💖`
     };
 
-    emailjs.send("service_3koffek", "template_r2s4dcf", emailData)
+    emailjs.send("service_3koffek", "template_25h2jdk", emailData)
         .then(function(response) {
             console.log("Email sent successfully", response);
             alert(`Order placed successfully! You ordered:\n\n${orderDetails}\n\nTe amo! 💖`);
