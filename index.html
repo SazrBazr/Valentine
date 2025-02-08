@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Gift Shop</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="fade-in">💖 My Love, Your Special Gift 💖</h1>
+        <h2>Your Gift Card Balance: $<span id="balance">300</span></h2>
+
+        <div class="shop">
+            <div class="card" data-price="50" data-description="A cozy virtual date night with a surprise element! One of the options: a movie">
+                <img src="https://kumospace.mo.cloudinary.net/https://content.kumospace.com/hubfs/Foodie-Inspired%20Virtual%20Dates.jpg?tx=c_scale,w_750,h_562" alt="Virtual Date">
+                <div class="card-content">
+                    <div class="card-title">Virtual Date Night</div>
+                    <div class="card-price">$50</div>
+                    <button onclick="showPopup('Virtual Date Night', 50, 'A cozy virtual date night with a surprise element! One of the options: a movie')">Show More</button>
+                </div>
+            </div>
+            <div class="card" data-price="70" data-description="you get a one-time-only 'pass' where you can ask me literally to do whatever you want. Maybe confess some crazy things too">
+                <img src="https://hudsoncourses.com/wp-content/uploads/2018/04/Pass.png" alt="One Night Pass">
+                <div class="card-content">
+                    <div class="card-title">One Night Pass</div>
+                    <div class="card-price">$70</div>
+                    <button onclick="showPopup('One Night Pass', 70, 'you get a one-time-only pass where you can ask me literally to do whatever you want. Maybe confess some crazy things too')">Show More</button>
+                </div>
+            </div>
+            <div class="card" data-price="80" data-description="I will send you a spicy message… but it’s locked, To unlock it, she must complete 3 teasing challenges that you set">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlNA3TzmxLMdHg1tQL2xr7clxL6oYrWuCbqA&s" alt="Locked Message">
+                <div class="card-content">
+                    <div class="card-title">Locked Message</div>
+                    <div class="card-price">$80</div>
+                    <button onclick="showPopup('Locked Message', 80, 'I will send you a spicy message… but it’s locked, To unlock it, she must complete 3 teasing challenges that you set')">Show More</button>
+                </div>
+            </div>
+        <div class="card" data-price="100" data-description="A list of 6 spicy dares">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQL4BSMSkmfn-sXLspF07U6sqodLo04GTuczA&s" alt="Naughty Dice">
+            <div class="card-content">
+                <div class="card-title">Naughty Dice</div>
+                <div class="card-price">$100</div>
+                <button onclick="showPopup('Naughty Dice', 100, 'A list of 6 spicy dares')">Show More</button>
+            </div>
+        </div>
+        <div class="card" data-price="200" data-description="💎 The most exclusive option. She gets a private message from you, but only after she completes a challenge (maybe a video, maybe a dare… maybe something even bolder 😏). The reward? A deep, intimate confession that’ll make her heart race.">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnrulB6xgMKC4fy8lap1EBbiGyguTV0B-4nA&s" alt="The Locked Box">
+            <div class="card-content">
+                <div class="card-title">The Locked Box</div>
+                <div class="card-price">$200</div>
+                <button onclick="showPopup('The Locked Box', 200, '💎 The most exclusive option. She gets a private message from you, but only after she completes a challenge (maybe a video, maybe a dare… maybe something even bolder 😏). The reward? A deep, intimate confession that’ll make her heart race.')">Show More</button>
+            </div>
+        </div>
+        <div class="card" data-price="250" data-description="👑 For one whole day, you are her personal servant—but not just in the sweet way. She gets to command you, make requests, and you have to obey every single one (within reason 😉).">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYcK30NJ1Go-xq3dhWhMZ8mNsOyRhvVr113A&s" alt="Your Personal King">
+            <div class="card-content">
+                <div class="card-title">Your Personal King</div>
+                <div class="card-price">$250</div>
+                <button onclick="showPopup('Your Personal King', 250, '👑 For one whole day, you are her personal servant—but not just in the sweet way. She gets to command you, make requests, and you have to obey every single one (within reason 😉).')">Show More</button>
+            </div>
+        </div>
+    </div>
+
+        <!-- <button class="view-cart-btn" onclick="toggleCart()">🛒 View Cart</button> -->
+        
+        <div id="cart" class="cart-section"">
+            <h3>Your Cart</h3>
+            <ul id="cartItems"></ul>
+            <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Popup Modal -->
+    <div id="popupModal" class="modal hidden">
+        <div class="modal-content">
+            <h2 id="popupTitle"></h2>
+            <p id="popupDescription"></p>
+            <button class="addBtn" id="confirmAddToCart">Add to Cart</button>
+            <button class="cancelBtn" onclick="closePopup()">Cancel</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
