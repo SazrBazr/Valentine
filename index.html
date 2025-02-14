@@ -163,7 +163,7 @@
 <body>
     <h1>Valentine's Escape Room</h1>
     
-    <div id="challenge1" class="challenge">
+    <div id="challenge3" class="challenge">
         <h2>Enter the 6-digit PIN to unlock the next level</h2>
         <div id="screen"></div>
         <div id="keypad"></div>
@@ -207,7 +207,7 @@
     </div>
 
 
-    <div id="challenge3" class="challenge">
+    <div id="challenge1" class="challenge">
         <h2>Match the Spanish Words with Their Arabic Meanings</h2>
         <p>Match each Spanish word to its meaning in Arabic.</p>
         
@@ -309,8 +309,8 @@
         function checkPin() {
             if (enteredPin === correctPin) {
                 alert("Correct! Moving to the next challenge.");
-                challenge1.style.display = "none";
-                challenge2.style.display = "block";
+                challenge3.style.display = "none";
+                letter.style.display = "block";
             } else {
                 alert("Incorrect PIN. Try again.");
                 enteredPin = "";
@@ -419,8 +419,8 @@
         function checkMatching(){
             if(correctMatches === 8){
                 alert("Congratulations! You've completed the challenge.");
-                challenge3.style.display = "none";
-                letter.style.display = "block";
+                challenge1.style.display = "none";
+                challenge2.style.display = "block";
             }
             else{
                 alert("Not all pairs are matched");
