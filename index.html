@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Escape Room</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: pink;
+        }
+        p{
+            font-size: 18px;
+        }
+        .cardWrapper{
+            background-color: #FFDEE3;
+            border-radius: 10px;
+            padding: 5px;
+        }
+        .challenge {
+            display: none;
+        }
+        #keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            width: 180px;
+            margin: auto;
+        }
+        .clear-btn{
+            background-color:firebrick;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin-right: 5px;
+        }
+        .check-btn{
+            background-color:darkgreen;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin-left: 5px;
+        }
+        .key {
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 10px;
+            background-color: #FF8896;
+            border-color: white;
+        }
+        #zero {
+            grid-column: span 3;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        #screen {
+            width: 160px;
+            height: 30px;
+            margin: 10px auto;
+            background-color:powderblue;
+            text-align: center;
+            line-height: 30px;
+            font-size: 24px;
+            padding: 5px;
+            border: 1px solid #000;
+            border-radius: 10px;
+        }
+        .input-box {
+            display: block;
+            margin: 10px auto;
+            font-size: 24px;
+            padding: 5px;
+            border-color: #FF3334;
+            border-radius: 10px;
+        }
+        .input-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+            background-color: #FFDEE3;
+            border-radius: 10px;
+        }
+
+        .lock-img {
+            width: 150px;
+            height: 150px;
+        }
+
+        .hidden {
+            display: none;
+        }
+        #puzzle{
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: auto;
+        }
+
+        #spanish-words, #arabic-meanings {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+
+        .word, .meaning {
+            padding: 10px;
+            margin: 5px;
+            background-color: #FF8896;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #spanish-words .word {
+            background-color: #FF6F91;
+        }
+
+        #arabic-meanings .meaning {
+            background-color: #FF9FCF;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: darkgreen;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .letter-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            width: 80%;
+            margin: 0 auto;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .letter-title {
+            font-size: 2em;
+            color: #ff99cc;
+            margin-bottom: 20px;
+            font-family: 'Georgia', serif;
+        }
+        .letter-body {
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: #5c3c76;
+            margin-bottom: 30px;
+            text-align: left;
+            font-family: 'Georgia', serif;
+        }
+        .letter-signature {
+            font-size: 1.5em;
+            font-style: italic;
+            color: #ff66b3;
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Valentine's Escape Room</h1>
+    
+    <div id="challenge1" class="challenge">
+        <h2>Enter the 6-digit PIN to unlock the next level</h2>
+        <div id="screen"></div>
+        <div id="keypad"></div>
+        <button class="clear-btn" onclick="clearPin()">Clear</button>
+        <button class="check-btn" onclick="checkPin()">Check</button>
+    </div>
+    
+    <div id="challenge2" class="challenge">
+        <h2>Love Notes Puzzle: Arrange the message in the correct order</h2>
+        <div id="puzzle">
+            <div class="input-container">
+                <img id="lock1" src="lock.png" alt="Lock 1" class="lock-img" />
+                <input type="text" class="input-box" id="part1" placeholder="Code 1" />
+                <p>Send me a voice note on Snapchat where you tease me</p>
+                <p>describe what you'd do if I were right there with you,</p>
+                <p>make it slow, make it tempting... leave just enough to drive me crazy</p>
+                <p>but not enough to satisfy my curiosity.</p>
+                <button class="check-btn" onclick="checkPuzzle(1)">Unlock</button>
+            </div>
+            <div class="input-container">
+                <img id="lock2" src="lock.png" alt="Lock 2" class="lock-img" />
+                <input type="text" class="input-box" id="part2" placeholder="Code 2" />
+                <p>Send me a photo on Snapchat that’s just enough to tempt me</p>
+                <p>something sexy, something teasing but don’t give everything away…</p>
+                <p>leave me curios about the rest.</p>
+                <button class="check-btn" onclick="checkPuzzle(2)">Unlock</button>
+            </div>
+            <div class="input-container">
+                <img id="lock3" src="lock.png" alt="Lock 3" class="lock-img" />
+                <input type="text" class="input-box" id="part3" placeholder="Code 3" />
+                <p>Send me a message describing each part of your body</p>
+                <p>like your eyes, legs, belly and even private parts if</p>
+                <p>you are comfortable with it, in absoulotly full details,</p>
+                <p>what it feels like, what it would be like if I were there,</p>
+                <p>and how you'd want me to touch or kiss you...,</p>
+                <p>make it as hot and sexy as you are comfortable with <3</p>
+                <button class="check-btn" onclick="checkPuzzle(3)">Unlock</button>
+            </div>
+        </div>
+        <button class="check-btn" onclick="checkPuzzle(0)">Open</button>
+    </div>
+
+
+    <div id="challenge3" class="challenge">
+        <h2>Match the Spanish Words with Their Arabic Meanings</h2>
+        <p>Match each Spanish word to its meaning in Arabic.</p>
+        
+        <div id="spanish-words">
+            <div class="word" id="suenos" draggable="true">Sueños</div>
+            <div class="word" id="vida" draggable="true">Vida</div>
+            <div class="word" id="esperanza" draggable="true">Esperanza</div>
+            <div class="word" id="amor" draggable="true">Amor</div>
+            <div class="word" id="companero" draggable="true">Compañero</div>
+            <div class="word" id="felicidad" draggable="true">Felicidad</div>
+            <div class="word" id="corazon" draggable="true">Corazón</div>
+            <div class="word" id="juntos" draggable="true">Juntos</div>
+        </div>
+        
+        <div id="arabic-meanings">
+            <div class="meaning" id="حب">حب (Love)</div>
+            <div class="meaning" id="سعادة">سعادة (Happiness)</div>
+            <div class="meaning" id="قلب">قلب (Heart)</div>
+            <div class="meaning" id="معًا">معًا (Together)</div>
+            <div class="meaning" id="أحلام">أحلام (Dreams)</div>
+            <div class="meaning" id="حياة">حياة (Life)</div>
+            <div class="meaning" id="أمل">أمل (Hope)</div>
+            <div class="meaning" id="شريك">شريك (Partner)</div>
+        </div>
+    
+        <button onclick="checkMatching()">Check</button>
+    </div>
+
+    <div id="letter" class="challenge">
+        <div class="letter-container">
+            <h1 class="letter-title">Mi Leslyta Amorcita,</h1>
+            
+            <p class="letter-body">
+                Every moment that we spend apart feels like a lifetime, but every thought of you brings me closer to you in ways I never imagined possible. With every heartbeat, I feel you right here beside me, in the very essence of my being. You’ve filled my life with a light that is brighter than the sun. Your love is the melody that plays in the background of my every day, soothing my soul and guiding me forward.
+            </p>
+            
+            <p class="letter-body">
+                When I think of you, I am overcome with a sense of peace, peace that only your presence can bring. The sound of your voice, the sparkle in your eyes, the way your laughter dances in the air, it’s all carved deep into my heart. You are my heart, my every breath, and my reason for smiling even when life feels difficult.
+            </p>
+            
+            <p class="letter-body">
+                I find myself lost in the idea of us, how we met although the there is 12562.4 kms between us, how we’ve shared pieces of our lives from thousands of miles apart. And yet, it feels as though we’ve always known each other, as though we’ve been waiting for this very moment, this very love, for eternity. Your love is the most beautiful thing I’ve ever known, and I’m endlessly grateful that I get to be the one who calls you mine.
+            </p>
+            
+            <p class="letter-body">
+                I think about our future and all the beautiful things we will experience together. Every day with you is a promise of joy, of laughter, of learning and growing together. And when we are finally together, my love, there will be no distance, no barrier too great for us to overcome. I want to hold you close, never let you go, I will hug you and kiss you forever.
+            </p>
+            
+            <p class="letter-body">
+                You are everything to me. In you, I’ve found my home, my safe haven, and my forever. I can’t wait to wrap you in my arms, to hold your hand as we walk through life side by side. But until that moment, know that my love for you is boundless, unshakeable, and eternal.
+            </p>
+            
+            <p class="letter-body">
+                You are my heart’s desire, my dream come true, my one and only. And I will love you, with all that I am, for all the days of my life.
+            </p>
+            
+            <p class="letter-signature">Yours, always and forever, <br> Sari <3</p>
+        </div>
+    </div>
+    
+
+    <script>
+        const correctPin = "385701"; 
+        let enteredPin = "";
+        
+        const screen = document.getElementById("screen");
+        const keypad = document.getElementById("keypad");
+
+        const challenge1 = document.getElementById("challenge1");
+        const challenge2 = document.getElementById("challenge2");
+        const challenge3 = document.getElementById("challenge3");
+        const letter = document.getElementById("letter");
+
+        const correctCodes = ["choco", "271224", "sorrii"]; // Correct order of puzzle parts
+        let enteredPuzzle = [];
+        
+        // Keypad for PIN
+        for (let i = 1; i <= 9; i++) {
+            let btn = document.createElement("button");
+            btn.textContent = i;
+            btn.className = "key";
+            btn.onclick = () => enterDigit(i);
+            keypad.appendChild(btn);
+        }
+        let zeroBtn = document.createElement("button");
+        zeroBtn.textContent = "0";
+        zeroBtn.className = "key";
+        zeroBtn.id = "zero";
+        zeroBtn.onclick = () => enterDigit(0);
+        keypad.appendChild(zeroBtn);
+
+        function enterDigit(digit) {
+            if (enteredPin.length < 6) {
+                enteredPin += digit;
+                screen.textContent = enteredPin;
+            }
+        }
+
+        function checkPin() {
+            if (enteredPin === correctPin) {
+                alert("Correct! Moving to the next challenge.");
+                challenge1.style.display = "none";
+                challenge2.style.display = "block";
+            } else {
+                alert("Incorrect PIN. Try again.");
+                enteredPin = "";
+                screen.textContent = "";
+            }
+        }
+
+        function clearPin() {
+            enteredPin = "";
+            screen.textContent = "";
+        }
+
+        // Challenge 2 - Love Notes Puzzle
+        function checkPuzzle(status) {
+            // Check if all parts of the code are correct
+            if(status === 0){
+                if(enteredPuzzle[0] === correctCodes[0] && enteredPuzzle[1] === correctCodes[1] && enteredPuzzle[2] === correctCodes[2]){
+                    alert("Correct! Moving to the next challenge.");
+                    challenge2.style.display = "none";
+                    challenge3.style.display = "block";
+                }
+            }
+            if(status === 1){
+                if (enteredPuzzle[0] === correctCodes[0]) {
+                    document.getElementById("lock1").src="unlocked.png";
+                }
+            }
+            if(status === 2){
+                if (enteredPuzzle[1] === correctCodes[1]) {
+                    document.getElementById("lock2").src="unlocked.png";
+                }
+            }
+            if(status === 3){
+                if (enteredPuzzle[2] === correctCodes[2]) {
+                    document.getElementById("lock3").src="unlocked.png";
+                }
+            }
+
+        }
+
+        function enterCode(partIndex, value) {
+            enteredPuzzle[partIndex] = value;
+            // You can call checkPuzzle() when all the parts are entered, if you prefer.
+        }
+
+        // Example of triggering animation on code input (part1, part2, part3)
+        document.getElementById("part1").addEventListener("input", (e) => enterCode(0, e.target.value));
+        document.getElementById("part2").addEventListener("input", (e) => enterCode(1, e.target.value));
+        document.getElementById("part3").addEventListener("input", (e) => enterCode(2, e.target.value));
+
+        // Challenge 3 - Picture Memory Puzzle (simplified check)
+        // Enable dragging and dropping
+        document.querySelectorAll(".word").forEach(item => {
+            item.addEventListener("dragstart", dragStart);
+        });
+
+        document.querySelectorAll(".meaning").forEach(item => {
+            item.addEventListener("dragover", dragOver);
+            item.addEventListener("drop", drop);
+        });
+
+        let draggedWord = null;
+
+        function dragStart(event) {
+            draggedWord = event.target.id;
+        }
+
+        function dragOver(event) {
+            event.preventDefault();
+        }
+
+        let correctMatches = 0;
+        function drop(event) {
+            event.preventDefault();
+            // Check for correct matches and change background color to green
+            if (draggedWord === "amor" && event.target.id === "حب") {
+                event.target.style.backgroundColor = "green";
+                correctMatches++;
+            } else if (draggedWord === "felicidad" && event.target.id === "سعادة") {
+                event.target.style.backgroundColor = "green";
+                correctMatches++;
+            } else if (draggedWord === "corazon" && event.target.id === "قلب") {
+                event.target.style.backgroundColor = "green";
+                correctMatches++;
+            } else if (draggedWord === "juntos" && event.target.id === "معًا") {
+                event.target.style.backgroundColor = "green";
+                correctMatches++;
+            } else if (draggedWord === "suenos" && event.target.id === "أحلام") {
+                event.target.style.backgroundColor = "green";
+                correctMatches++;
+            } else if (draggedWord === "vida" && event.target.id === "حياة") {
+                event.target.style.backgroundColor = "green";
+                correctMatches++;
+            } else if (draggedWord === "esperanza" && event.target.id === "أمل") {
+                event.target.style.backgroundColor = "green";
+                correctMatches++;
+            } else if (draggedWord === "companero" && event.target.id === "شريك") {
+                event.target.style.backgroundColor = "green";
+                correctMatches++;
+            } else {
+                // If the match is incorrect, reset the color
+                event.target.style.backgroundColor = "";
+            }
+        }
+
+        function checkMatching(){
+            if(correctMatches === 8){
+                alert("Congratulations! You've completed the challenge.");
+                challenge3.style.display = "none";
+                letter.style.display = "block";
+            }
+            else{
+                alert("Not all pairs are matched");
+            }
+        }
+
+        // Initial Challenge 1 starts visible
+        challenge1.style.display = "block";
+    </script>
+</body>
+</html>
